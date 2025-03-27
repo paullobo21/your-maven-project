@@ -15,8 +15,8 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <junit.jupiter.version>5.10.1</junit.jupiter.version>  <!-- Latest JUnit 5 -->
-        <surefire.plugin.version>3.0.0-M7</surefire.plugin.version>  <!-- Required for JUnit 5 -->
+        <junit.jupiter.version>5.10.1</junit.jupiter.version>
+        <surefire.plugin.version>3.0.0-M7</surefire.plugin.version>
     </properties>
 
     <dependencies>
@@ -28,7 +28,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit 5 Engine (Needed to Run Tests) -->
+        <!-- JUnit 5 Engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -39,7 +39,7 @@
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin for Java 17 -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -50,13 +50,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire Plugin to Run JUnit 5 Tests -->
+            <!-- Maven Surefire Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
+                <configuration>
+                    <!-- Fix for reflective access issues -->
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
-
