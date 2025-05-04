@@ -12,6 +12,7 @@
 
     - name: Copy the artifact to the deployment directory
       ansible.builtin.copy:
-        src: "/var/lib/jenkins/workspace/HelloMaven-CI/target/HelloMaven-1.0-SNAPSHOT.jar"
+        # Corrected source path to match the actual artifact name from the Maven build
+        src: "/var/lib/jenkins/workspace/HelloMaven-CI/target/maven-junit5-example-1.0-SNAPSHOT.jar"
         dest: "/var/lib/jenkins/deployment/HelloMaven.jar" # Example path accessible by Jenkins user
         remote_src: yes # Indicates the source file is on the remote host (Jenkins agent)
