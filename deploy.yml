@@ -1,0 +1,17 @@
+---
+- name: Deploy Maven Artifact (Jenkins User Accessible)
+  hosts: local # Or the target host/group accessible by Jenkins user
+  # become: yes # Removed to avoid requiring sudo
+
+  tasks:
+    - name: Ensure deployment directory exists
+      ansible.builtin.file:
+        path: "/var/lib/jenkins/deployment" # Example path accessible by Jenkins user
+        state: directory
+        mode: '0755' # Standard permissions
+
+    - name: Copy the artifact to the deployment directory
+      ansible.builtin.copy:
+        src: "/var/lib/jenkins/workspace/HelloMaven-CI/target/HelloMaven-1.0-SNAPSHOT.jar"
+        dest: "/var/lib/jenkins/deployment/HelloMaven.jar" # Example path accessible by Jenkins user
+        remote_src: yes # Indicates the source file is on the remote host (Jenkins agent)
